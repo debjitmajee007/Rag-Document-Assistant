@@ -1,0 +1,227 @@
+/* ---------- Base ---------- */
+body {
+  background: #0b0f17;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+}
+
+.glass {
+  background: rgba(23, 31, 51, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glow-purple { box-shadow: 0 0 25px rgba(147, 51, 234, 0.25); }
+.glow-blue { box-shadow: 0 0 25px rgba(59, 130, 246, 0.25); }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+
+/* Visible keyboard focus everywhere */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+}
+
+/* ---------- Matrix rain canvas ---------- */
+#matrixCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+#matrixCanvas.active { opacity: 0.16; }
+#matrixCanvas.intensify { opacity: 0.32; }
+
+@media (prefers-reduced-motion: reduce) {
+  #matrixCanvas { display: none; }
+}
+
+.app-shell { color: #e2e8f0; }
+
+/* ---------- Tabs ---------- */
+.tab-bar { height: 48px; }
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  height: 48px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #94a3b8;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: #cbd5e1; }
+.tab-btn.active {
+  color: #c4b5fd;
+  border-bottom-color: #818cf8;
+}
+.tab-btn i { font-size: 0.75rem; }
+
+.tab-panel { animation: fade-in 0.2s ease; }
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel { animation: none; }
+}
+
+.no-doc-banner {
+  background: rgba(251, 191, 36, 0.08);
+  border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+  font-size: 0.8125rem;
+  padding: 0.6rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ---------- Chunk index list (Workspace tab) ---------- */
+.chunk-index-list { list-style: none; margin: 0; padding: 0; }
+.chunk-index-item {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: #94a3b8;
+  cursor: default;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.chunk-index-item .chunk-num {
+  color: #64748b;
+  flex-shrink: 0;
+}
+.chunk-index-item.highlighted {
+  background: rgba(234, 179, 8, 0.08);
+  border-color: rgba(234, 179, 8, 0.35);
+  color: #fde68a;
+}
+.chunk-index-item.flash {
+  background: rgba(234, 179, 8, 0.22);
+}
+
+/* ---------- Chat source pills ---------- */
+.source-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.625rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  color: #fde68a;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.source-pill:hover { background: rgba(234, 179, 8, 0.2); }
+
+.not-found-bubble {
+  border-color: rgba(248, 113, 113, 0.3) !important;
+  background: rgba(248, 113, 113, 0.08) !important;
+}
+
+.error-bubble {
+  border-color: rgba(248, 113, 113, 0.4) !important;
+  background: rgba(127, 29, 29, 0.25) !important;
+  color: #fca5a5 !important;
+}
+
+/* ---------- Knowledge Graph ---------- */
+#graphNetwork { background: transparent; }
+
+/* ---------- Podcast ---------- */
+.podcast-line {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.podcast-line.host-b { flex-direction: row-reverse; }
+
+.podcast-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.podcast-line.host-a .podcast-avatar { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+.podcast-line.host-b .podcast-avatar { background: rgba(236, 72, 153, 0.2); color: #f9a8d4; }
+
+.podcast-bubble {
+  max-width: 80%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(30, 41, 59, 0.6);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.podcast-line.host-b .podcast-bubble { text-align: right; }
+.podcast-line.speaking .podcast-bubble {
+  border-color: rgba(129, 140, 248, 0.6);
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* ---------- Matrix toggle switch ---------- */
+.matrix-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  width: fit-content;
+}
+.matrix-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+.matrix-toggle-track {
+  width: 2.75rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  position: relative;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+.matrix-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: #94a3b8;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.matrix-toggle input:checked + .matrix-toggle-track {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.6);
+}
+.matrix-toggle input:checked + .matrix-toggle-track .matrix-toggle-thumb {
+  transform: translateX(1.25rem);
+  background: #34d399;
+}
+.matrix-toggle input:focus-visible + .matrix-toggle-track {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+}
